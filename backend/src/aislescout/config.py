@@ -20,6 +20,7 @@ class Settings:
     walmart_private_key_path: Path
     walmart_key_version: str
     walmart_publisher_id: str
+    demo: bool = False  # serve labeled sample data instead of calling real APIs
 
     @property
     def kroger_configured(self) -> bool:
@@ -42,4 +43,5 @@ def load_settings() -> Settings:
         walmart_private_key_path=key_path,
         walmart_key_version=os.environ.get("WALMART_KEY_VERSION", "1"),
         walmart_publisher_id=os.environ.get("WALMART_PUBLISHER_ID", ""),
+        demo=os.environ.get("AISLESCOUT_DEMO", "").strip().lower() in {"1", "true", "yes"},
     )

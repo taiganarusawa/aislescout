@@ -14,7 +14,9 @@ Grocery deal finder: search an item (e.g. "apples") and see current deals across
 - See `docs/data-sources.md` for the research behind each source.
 
 ## Layout
-- `backend/`: Python 3.13 package `aislescout` (data sources, parsing, CLI), tests in `backend/tests/`.
+- `backend/`: Python 3.13 package `aislescout` (data sources, parsing, search service, FastAPI app in `api.py`, CLI), tests in `backend/tests/`.
+- `web/`: Next.js 16 app. **Read `web/AGENTS.md` first**: this Next.js version differs from older ones, and its docs are in `web/node_modules/next/dist/docs/`.
+- Sample data (`--demo` / `AISLESCOUT_DEMO=1`) uses made-up store names and every response says `demo: true`. Never present it as real prices.
 
 ## Dev commands (run from `backend/`)
 ```bash
@@ -22,5 +24,7 @@ python -m venv .venv
 .venv/Scripts/python -m pip install -e ".[dev]"
 .venv/Scripts/python -m pytest
 .venv/Scripts/python -m aislescout --help
+.venv/Scripts/python -m aislescout serve --demo   # API on :8000
 ```
+Web (run from `web/`): `npm run dev` (port 3000), `npm run lint`, `npx tsc --noEmit`.
 Secrets go in `backend/.env` (copy `.env.example`). Never commit `.env`.

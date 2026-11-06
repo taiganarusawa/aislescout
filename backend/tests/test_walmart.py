@@ -200,6 +200,11 @@ def test_generate_key_pair(tmp_path):
     with pytest.raises(FileExistsError):  # never silently overwrite a key
         generate_key_pair(tmp_path)
 
+    second, _ = generate_key_pair(tmp_path, "walmart_private_key_prod.pem")
+    assert second.name == "walmart_private_key_prod.pem"
+    with pytest.raises(ValueError):  # no writing outside the keys folder
+        generate_key_pair(tmp_path, "../escape.pem")
+
 
 def test_missing_credentials(key):
     with pytest.raises(ValueError):

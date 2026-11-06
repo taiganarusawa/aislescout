@@ -58,14 +58,16 @@ def load_private_key(key_text: str) -> rsa.RSAPrivateKey:
     return key
 
 
-def generate_key_pair(directory: Path) -> tuple[Path, str]:
+def generate_key_pair(directory: Path, filename: str = "walmart_private_key.pem") -> tuple[Path, str]:
     """Create a 2048-bit RSA key pair for walmart.io.
 
-    Writes the private key (PKCS#8 PEM) to `directory/walmart_private_key.pem` and
-    returns (path, public key PEM). The public key is what you upload to walmart.io.
+    Writes the private key (PKCS#8 PEM) to `directory/filename` and returns
+    (path, public key PEM). The public key is what you upload to walmart.io.
     """
+    if Path(filename).name != filename:
+        raise ValueError("filename must be a plain file name, not a path")
     directory.mkdir(parents=True, exist_ok=True)
-    path = directory / "walmart_private_key.pem"
+    path = directory / filename
     if path.exists():
         raise FileExistsError(f"{path} already exists; delete it first if you really want a new key")
     key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
