@@ -13,6 +13,9 @@ dist/
 .env
 .env.*
 !.env.example
+keys/
+*.pem
+*.key
 
 # Editors / OS
 .vscode/

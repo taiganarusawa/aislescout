@@ -56,6 +56,11 @@ class Deal(BaseModel):
     image_url: str | None = None
     product_url: str | None = None
 
+    # Product-level customer reviews, when the source provides them (store
+    # ratings come separately, from Google Places).
+    product_rating: float | None = Field(default=None, ge=0, le=5)
+    review_count: int | None = Field(default=None, ge=0)
+
     @property
     def on_sale(self) -> bool:
         return self.sale_price is not None

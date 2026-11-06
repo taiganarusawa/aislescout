@@ -10,6 +10,7 @@ Grocery deal finder: search an item (e.g. "apples") and see current deals across
 ## Data source rules
 - Use official APIs, or sources the owner has explicitly approved. Don't pull access tokens out of retailer web pages to call their undocumented APIs.
 - **Kroger** (official API): don't store Kroger price data permanently, and don't cache it longer than the response's `Cache-Control` header allows. Fetch live per search.
+- **Walmart** (official Affiliate API): 5,000 calls/day, online prices only. Never scrape walmart.com. The private key lives in `backend/keys/` (gitignored); never print, log, or commit it.
 - See `docs/data-sources.md` for the research behind each source.
 
 ## Layout
